@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -41,21 +40,24 @@ const Index = () => {
       description: "Advanced customer segmentation using machine learning techniques to identify distinct customer groups and optimize marketing strategies.",
       technologies: ["Python", "Scikit-learn", "Pandas", "K-Means", "Data Visualization"],
       icon: Users,
-      color: "from-blue-500 to-cyan-500"
+      color: "from-blue-500 to-cyan-500",
+      githubUrl: "https://github.com/Katab-sawan/portfolio/blob/main/personal_projects/customer_segementation.ipynb"
     },
     {
       title: "Stock Prediction with LSTM",
       description: "Deep learning model using LSTM neural networks to predict stock prices with time series analysis and technical indicators.",
       technologies: ["Python", "TensorFlow", "LSTM", "NumPy", "Financial Data APIs"],
       icon: TrendingUp,
-      color: "from-green-500 to-emerald-500"
+      color: "from-green-500 to-emerald-500",
+      githubUrl: "https://github.com/Katab-sawan/portfolio/blob/main/personal_projects/AAPL_PREDICTION.ipynb"
     },
     {
       title: "Heart Disease Prediction with KNN",
       description: "Machine learning classification model using K-Nearest Neighbors algorithm to predict heart disease risk based on medical indicators.",
       technologies: ["Python", "Scikit-learn", "KNN", "Data Preprocessing", "Medical Data"],
       icon: Heart,
-      color: "from-red-500 to-pink-500"
+      color: "from-red-500 to-pink-500",
+      githubUrl: "https://github.com/Katab-sawan/portfolio/blob/main/personal_projects/Heart_Disease_prediction.ipynb"
     }
   ];
 
@@ -164,10 +166,20 @@ const Index = () => {
             </Button>
           </div>
           <div className="flex justify-center space-x-6">
-            <Button variant="ghost" size="icon" className="text-white/60 hover:text-white">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="text-white/60 hover:text-white"
+              onClick={() => window.open('https://github.com/Katab-sawan/portfolio', '_blank')}
+            >
               <Github className="w-6 h-6" />
             </Button>
-            <Button variant="ghost" size="icon" className="text-white/60 hover:text-white">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="text-white/60 hover:text-white"
+              onClick={() => window.open('https://www.linkedin.com/in/katab-sawan-60a2a8260/', '_blank')}
+            >
               <Linkedin className="w-6 h-6" />
             </Button>
             <Button variant="ghost" size="icon" className="text-white/60 hover:text-white">
@@ -308,7 +320,10 @@ const Index = () => {
               </CardContent>
             </Card>
             
-            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all cursor-pointer group">
+            <Card 
+              className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all cursor-pointer group"
+              onClick={() => window.open('https://www.linkedin.com/in/katab-sawan-60a2a8260/', '_blank')}
+            >
               <CardContent className="p-6 text-center">
                 <Linkedin className="w-8 h-8 text-blue-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
                 <h3 className="text-white font-semibold mb-2">LinkedIn</h3>
@@ -316,7 +331,10 @@ const Index = () => {
               </CardContent>
             </Card>
             
-            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all cursor-pointer group">
+            <Card 
+              className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all cursor-pointer group"
+              onClick={() => window.open('https://github.com/Katab-sawan/portfolio', '_blank')}
+            >
               <CardContent className="p-6 text-center">
                 <Github className="w-8 h-8 text-blue-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
                 <h3 className="text-white font-semibold mb-2">GitHub</h3>

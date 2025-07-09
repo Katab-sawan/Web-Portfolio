@@ -34,7 +34,7 @@ export const SkillsSection = () => {
       title: "Programming Languages",
       icon: Code,
       color: "from-blue-500 to-purple-500",
-      skills: ["Python", "R", "SQL", "JavaScript", "C++", "MATLAB"],
+      skills: ["Python", "Java", "SQL"],
       level: 90
     },
     {
@@ -59,10 +59,10 @@ export const SkillsSection = () => {
       level: 88
     },
     {
-      title: "Databases & Tools",
+      title: "Database & Tools",
       icon: Database,
       color: "from-cyan-500 to-teal-500",
-      skills: ["PostgreSQL", "MongoDB", "Git", "Docker", "AWS", "Jupyter"],
+      skills: ["Git", "MySQL", "MongoDB"],
       level: 75
     },
     {

@@ -12,6 +12,7 @@ interface ProjectCardProps {
     technologies: string[];
     icon: React.ElementType;
     color: string;
+    githubUrl?: string;
   };
   index: number;
 }
@@ -35,9 +36,16 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
             <project.icon className="w-6 h-6 text-white" />
           </div>
           <div className="flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
-            <Button size="sm" variant="ghost" className="text-white hover:text-blue-400 p-2">
-              <Github className="w-4 h-4" />
-            </Button>
+            {project.githubUrl && (
+              <Button 
+                size="sm" 
+                variant="ghost" 
+                className="text-white hover:text-blue-400 p-2"
+                onClick={() => window.open(project.githubUrl, '_blank')}
+              >
+                <Github className="w-4 h-4" />
+              </Button>
+            )}
             <Button size="sm" variant="ghost" className="text-white hover:text-blue-400 p-2">
               <ExternalLink className="w-4 h-4" />
             </Button>
