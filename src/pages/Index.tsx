@@ -1,8 +1,9 @@
 
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Github, Linkedin, Mail, MapPin, Calendar, ExternalLink, Code, TrendingUp, Heart, Users, Building, Brain, ChevronDown } from "lucide-react";
+import { ArrowRight, Github, Linkedin, Mail, MapPin, Calendar, ExternalLink, Code, TrendingUp, Heart, Users, Building, Brain, ChevronDown, Download, FileText } from "lucide-react";
 import { useState, useEffect } from "react";
 import { ProjectCard } from "@/components/ProjectCard";
 import { ExperienceCard } from "@/components/ExperienceCard";
@@ -16,7 +17,7 @@ const Index = () => {
     setIsVisible(true);
     
     const handleScroll = () => {
-      const sections = ['hero', 'about', 'projects', 'experience', 'skills', 'contact'];
+      const sections = ['hero', 'about', 'projects', 'experience', 'skills', 'cv', 'contact'];
       const scrollPosition = window.scrollY + 100;
       
       for (const section of sections) {
@@ -115,7 +116,7 @@ const Index = () => {
           <div className="flex items-center justify-between">
             <div className="text-2xl font-bold text-white">Portfolio</div>
             <div className="hidden md:flex items-center space-x-8">
-              {['About', 'Projects', 'Experience', 'Skills', 'Contact'].map((item) => (
+              {['About', 'Projects', 'Experience', 'Skills', 'CV', 'Contact'].map((item) => (
                 <button
                   key={item}
                   onClick={() => scrollToSection(item.toLowerCase())}
@@ -309,45 +310,72 @@ const Index = () => {
       {/* Skills Section */}
       <SkillsSection />
 
-      {/* Contact Section */}
-      <section id="contact" className="py-20 px-4">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">Let's Connect</h2>
-          <p className="text-blue-200 text-lg mb-12">
-            Interested in quantitative finance, AI, or just want to chat about technology? I'd love to hear from you.
-          </p>
+      {/* CV Section */}
+      <section id="cv" className="py-20 px-4">
+        <div className="container mx-auto max-w-4xl">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">My CV</h2>
+            <p className="text-blue-200 text-lg">
+              Download my complete resume or view it online
+            </p>
+          </div>
           
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Card 
-              className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all cursor-pointer group"
-              onClick={() => window.open('mailto:katabsawan12@gmail.com', '_self')}
-            >
-              <CardContent className="p-6 text-center">
-                <Mail className="w-8 h-8 text-blue-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
-                <h3 className="text-white font-semibold mb-2">Email</h3>
-                <p className="text-blue-200 text-sm">katabsawan12@gmail.com</p>
+          <div className="grid md:grid-cols-2 gap-8">
+            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all group">
+              <CardContent className="p-8 text-center">
+                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                  <FileText className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-4">View CV Online</h3>
+                <p className="text-blue-200 mb-6">
+                  Browse through my complete resume with all details about my education, experience, and skills.
+                </p>
+                <Button 
+                  className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600"
+                  onClick={() => window.open('/CV-CompletePDF.pdf', '_blank')}
+                >
+                  View CV <ExternalLink className="ml-2 w-4 h-4" />
+                </Button>
               </CardContent>
             </Card>
             
-            <Card 
-              className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all cursor-pointer group"
-              onClick={() => window.open('https://www.linkedin.com/in/katab-sawan-60a2a8260/', '_blank')}
-            >
-              <CardContent className="p-6 text-center">
-                <Linkedin className="w-8 h-8 text-blue-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
-                <h3 className="text-white font-semibold mb-2">LinkedIn</h3>
-                <p className="text-blue-200 text-sm">Connect with me</p>
+            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all group">
+              <CardContent className="p-8 text-center">
+                <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                  <Download className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-4">Download CV</h3>
+                <p className="text-blue-200 mb-6">
+                  Download a PDF copy of my resume for offline viewing or printing.
+                </p>
+                <Button 
+                  variant="outline"
+                  className="border-green-400 text-green-200 hover:bg-green-400/10"
+                  onClick={() => {
+                    const link = document.createElement('a');
+                    link.href = '/CV-CompletePDF.pdf';
+                    link.download = 'Katab_Sawan_CV.pdf';
+                    link.click();
+                  }}
+                >
+                  Download PDF <Download className="ml-2 w-4 h-4" />
+                </Button>
               </CardContent>
             </Card>
-            
-            <Card 
-              className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all cursor-pointer group"
-              onClick={() => window.open('https://github.com/Katab-sawan/portfolio/tree/main/personal_projects', '_blank')}
-            >
-              <CardContent className="p-6 text-center">
-                <Github className="w-8 h-8 text-blue-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
-                <h3 className="text-white font-semibold mb-2">GitHub</h3>
-                <p className="text-blue-200 text-sm">View my code</p>
+          </div>
+          
+          <div className="mt-12 text-center">
+            <Card className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 backdrop-blur-sm border-white/20">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-center space-x-4 text-blue-200">
+                  <Badge className="bg-blue-500/20 text-blue-200 border-blue-400/30">
+                    Updated 2024
+                  </Badge>
+                  <span>•</span>
+                  <span className="text-sm">Computer Science Student</span>
+                  <span>•</span>
+                  <span className="text-sm">Quantitative Finance Enthusiast</span>
+                </div>
               </CardContent>
             </Card>
           </div>
@@ -367,3 +395,4 @@ const Index = () => {
 };
 
 export default Index;
+
