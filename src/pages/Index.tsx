@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -170,7 +171,7 @@ const Index = () => {
               variant="ghost" 
               size="icon" 
               className="text-white/60 hover:text-white"
-              onClick={() => window.open('https://github.com/Katab-sawan/portfolio', '_blank')}
+              onClick={() => window.open('https://github.com/Katab-sawan/portfolio/tree/main/personal_projects', '_blank')}
             >
               <Github className="w-6 h-6" />
             </Button>
@@ -182,7 +183,12 @@ const Index = () => {
             >
               <Linkedin className="w-6 h-6" />
             </Button>
-            <Button variant="ghost" size="icon" className="text-white/60 hover:text-white">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="text-white/60 hover:text-white"
+              onClick={() => window.open('mailto:katabsawan12@gmail.com', '_self')}
+            >
               <Mail className="w-6 h-6" />
             </Button>
           </div>
@@ -312,11 +318,14 @@ const Index = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all cursor-pointer group">
+            <Card 
+              className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all cursor-pointer group"
+              onClick={() => window.open('mailto:katabsawan12@gmail.com', '_self')}
+            >
               <CardContent className="p-6 text-center">
                 <Mail className="w-8 h-8 text-blue-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
                 <h3 className="text-white font-semibold mb-2">Email</h3>
-                <p className="text-blue-200 text-sm">your.email@example.com</p>
+                <p className="text-blue-200 text-sm">katabsawan12@gmail.com</p>
               </CardContent>
             </Card>
             
@@ -333,7 +342,7 @@ const Index = () => {
             
             <Card 
               className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all cursor-pointer group"
-              onClick={() => window.open('https://github.com/Katab-sawan/portfolio', '_blank')}
+              onClick={() => window.open('https://github.com/Katab-sawan/portfolio/tree/main/personal_projects', '_blank')}
             >
               <CardContent className="p-6 text-center">
                 <Github className="w-8 h-8 text-blue-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
