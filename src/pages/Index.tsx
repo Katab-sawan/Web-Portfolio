@@ -2,255 +2,240 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Globe, CreditCard, Send, TrendingUp, Shield, Smartphone, Users } from "lucide-react";
-import { useState } from "react";
-import { WalletDashboard } from "@/components/WalletDashboard";
-import { CurrencyExchange } from "@/components/CurrencyExchange";
-import { TransferMoney } from "@/components/TransferMoney";
+import { ArrowRight, Github, Linkedin, Mail, MapPin, Calendar, ExternalLink, Code, TrendingUp, Heart, Users, Building, Brain, ChevronDown } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ProjectCard } from "@/components/ProjectCard";
+import { ExperienceCard } from "@/components/ExperienceCard";
+import { SkillsSection } from "@/components/SkillsSection";
 
 const Index = () => {
-  const [activeView, setActiveView] = useState<'landing' | 'wallet' | 'exchange' | 'transfer'>('landing');
+  const [isVisible, setIsVisible] = useState(false);
+  const [activeSection, setActiveSection] = useState('hero');
 
-  const mvpFeatures = [
+  useEffect(() => {
+    setIsVisible(true);
+    
+    const handleScroll = () => {
+      const sections = ['hero', 'about', 'projects', 'experience', 'skills', 'contact'];
+      const scrollPosition = window.scrollY + 100;
+      
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const projects = [
     {
-      icon: Globe,
-      title: "Multi-currency Wallet",
-      description: "Hold and exchange currencies at interbank rates",
-      badge: "Core MVP"
+      title: "Customer Segmentation",
+      description: "Advanced customer segmentation using machine learning techniques to identify distinct customer groups and optimize marketing strategies.",
+      technologies: ["Python", "Scikit-learn", "Pandas", "K-Means", "Data Visualization"],
+      icon: Users,
+      color: "from-blue-500 to-cyan-500"
     },
     {
-      icon: CreditCard,
-      title: "Global Spending Card",
-      description: "Spend worldwide using real exchange rates",
-      badge: "Essential"
-    },
-    {
-      icon: Send,
-      title: "Instant Transfers",
-      description: "Send money globally with low fees",
-      badge: "Network Effect"
-    },
-    {
+      title: "Stock Prediction with LSTM",
+      description: "Deep learning model using LSTM neural networks to predict stock prices with time series analysis and technical indicators.",
+      technologies: ["Python", "TensorFlow", "LSTM", "NumPy", "Financial Data APIs"],
       icon: TrendingUp,
-      title: "Smart Budgeting",
-      description: "Track spending and set financial limits",
-      badge: "User Retention"
+      color: "from-green-500 to-emerald-500"
+    },
+    {
+      title: "Heart Disease Prediction with KNN",
+      description: "Machine learning classification model using K-Nearest Neighbors algorithm to predict heart disease risk based on medical indicators.",
+      technologies: ["Python", "Scikit-learn", "KNN", "Data Preprocessing", "Medical Data"],
+      icon: Heart,
+      color: "from-red-500 to-pink-500"
     }
   ];
 
-  const targetUsers = [
-    "Frequent travelers",
-    "Digital nomads", 
-    "International freelancers",
-    "Tech-savvy millennials"
+  const experiences = [
+    {
+      title: "AI and Robotics Intern",
+      company: "Net0",
+      period: "June 2025 - Sept 2025",
+      location: "Remote",
+      description: "Working on cutting-edge AI and robotics projects, developing machine learning models for autonomous systems and data analysis.",
+      skills: ["Artificial Intelligence", "Robotics", "Machine Learning", "Data Analysis"],
+      type: "upcoming"
+    },
+    {
+      title: "Business Analyst",
+      company: "Eazy Real Estate",
+      period: "May 2024 - Aug 2024",
+      location: "Remote",
+      description: "Analyzed market trends, performed financial modeling, and provided data-driven insights for real estate investment decisions.",
+      skills: ["Financial Modeling", "Market Analysis", "Data Analytics", "Business Intelligence"],
+      type: "completed"
+    },
+    {
+      title: "Spring Programme Participant",
+      company: "IMC Trading",
+      period: "Apr 2024 - Apr 2024",
+      location: "Amsterdam, Netherlands",
+      description: "Intensive trading programme focusing on quantitative finance, algorithmic trading, and market microstructure.",
+      skills: ["Quantitative Finance", "Algorithmic Trading", "Risk Management", "Financial Markets"],
+      type: "completed"
+    }
   ];
 
-  if (activeView === 'wallet') {
-    return <WalletDashboard onBack={() => setActiveView('landing')} />;
-  }
-
-  if (activeView === 'exchange') {
-    return <CurrencyExchange onBack={() => setActiveView('landing')} />;
-  }
-
-  if (activeView === 'transfer') {
-    return <TransferMoney onBack={() => setActiveView('landing')} />;
-  }
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-950 via-blue-900 to-purple-900">
-      {/* Header */}
-      <header className="container mx-auto px-4 py-6">
-        <nav className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-purple-400 rounded-lg flex items-center justify-center">
-              <Globe className="w-5 h-5 text-white" />
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
+      {/* Navigation */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-md border-b border-white/10">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="text-2xl font-bold text-white">Portfolio</div>
+            <div className="hidden md:flex items-center space-x-8">
+              {['About', 'Projects', 'Experience', 'Skills', 'Contact'].map((item) => (
+                <button
+                  key={item}
+                  onClick={() => scrollToSection(item.toLowerCase())}
+                  className={`text-sm font-medium transition-colors hover:text-blue-400 ${
+                    activeSection === item.toLowerCase() ? 'text-blue-400' : 'text-white/80'
+                  }`}
+                >
+                  {item}
+                </button>
+              ))}
             </div>
-            <span className="text-xl font-bold text-white">Revolut MVP</span>
           </div>
-          <div className="flex items-center space-x-4">
-            <Button variant="ghost" className="text-white hover:text-blue-200">
-              Login
-            </Button>
-            <Button className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600">
-              Get Started
-            </Button>
-          </div>
-        </nav>
-      </header>
+        </div>
+      </nav>
 
       {/* Hero Section */}
-      <section className="container mx-auto px-4 py-20 text-center">
-        <Badge className="mb-6 bg-blue-500/20 text-blue-200 border-blue-400/30">
-          Fintech MVP Demo
-        </Badge>
-        <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-          Banking for the
-          <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-            {" "}Global Generation
-          </span>
-        </h1>
-        <p className="text-xl text-blue-200 mb-10 max-w-2xl mx-auto">
-          Exchange currencies at real rates, spend globally without fees, and send money instantly. 
-          The financial super app that travels with you.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button 
-            size="lg" 
-            className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-lg px-8"
-            onClick={() => setActiveView('wallet')}
-          >
-            Try Demo Wallet <ArrowRight className="ml-2 w-5 h-5" />
-          </Button>
-          <Button 
-            size="lg" 
-            variant="outline" 
-            className="border-blue-400 text-blue-200 hover:bg-blue-400/10"
-          >
-            Watch Demo
-          </Button>
-        </div>
-      </section>
-
-      {/* MVP Features */}
-      <section className="container mx-auto px-4 py-20">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Core MVP Features
-          </h2>
-          <p className="text-blue-200 text-lg max-w-2xl mx-auto">
-            The essential features that solve real problems for our target users
+      <section id="hero" className="min-h-screen flex items-center justify-center px-4 pt-20">
+        <div className={`text-center max-w-4xl transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className="mb-6">
+            <Badge className="mb-4 bg-blue-500/20 text-blue-200 border-blue-400/30">
+              Computer Science Student
+            </Badge>
+          </div>
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+            Quantitative Finance &
+            <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+              {" "}AI Enthusiast
+            </span>
+          </h1>
+          <p className="text-xl text-blue-200 mb-8 max-w-2xl mx-auto">
+            CS student passionate about Investment Banking, Quantitative Finance, AI & Machine Learning. 
+            Building the future of finance through technology and data science.
           </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+            <Button 
+              size="lg" 
+              className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-lg px-8"
+              onClick={() => scrollToSection('projects')}
+            >
+              View My Work <ArrowRight className="ml-2 w-5 h-5" />
+            </Button>
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="border-blue-400 text-blue-200 hover:bg-blue-400/10"
+              onClick={() => scrollToSection('contact')}
+            >
+              Get In Touch
+            </Button>
+          </div>
+          <div className="flex justify-center space-x-6">
+            <Button variant="ghost" size="icon" className="text-white/60 hover:text-white">
+              <Github className="w-6 h-6" />
+            </Button>
+            <Button variant="ghost" size="icon" className="text-white/60 hover:text-white">
+              <Linkedin className="w-6 h-6" />
+            </Button>
+            <Button variant="ghost" size="icon" className="text-white/60 hover:text-white">
+              <Mail className="w-6 h-6" />
+            </Button>
+          </div>
         </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {mvpFeatures.map((feature, index) => (
-            <Card key={index} className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all duration-300 group cursor-pointer">
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <feature.icon className="w-8 h-8 text-blue-400 group-hover:text-purple-400 transition-colors" />
-                  <Badge variant="secondary" className="bg-blue-500/20 text-blue-200 text-xs">
-                    {feature.badge}
-                  </Badge>
-                </div>
-                <CardTitle className="text-white group-hover:text-blue-200 transition-colors">
-                  {feature.title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-blue-200">
-                  {feature.description}
-                </CardDescription>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Interactive Demo Section */}
-      <section className="container mx-auto px-4 py-20">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Try the MVP Experience
-          </h2>
-          <p className="text-blue-200 text-lg">
-            Experience the core features that validate our product-market fit
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-          <Card 
-            className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-sm border-white/20 hover:from-blue-500/30 hover:to-purple-500/30 transition-all duration-300 cursor-pointer group"
-            onClick={() => setActiveView('wallet')}
-          >
-            <CardHeader className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                <CreditCard className="w-8 h-8 text-white" />
-              </div>
-              <CardTitle className="text-white">Wallet Dashboard</CardTitle>
-              <CardDescription className="text-blue-200">
-                View balances, transactions, and spending insights
-              </CardDescription>
-            </CardHeader>
-          </Card>
-
-          <Card 
-            className="bg-gradient-to-br from-green-500/20 to-blue-500/20 backdrop-blur-sm border-white/20 hover:from-green-500/30 hover:to-blue-500/30 transition-all duration-300 cursor-pointer group"
-            onClick={() => setActiveView('exchange')}
-          >
-            <CardHeader className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-green-400 to-blue-400 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                <Globe className="w-8 h-8 text-white" />
-              </div>
-              <CardTitle className="text-white">Currency Exchange</CardTitle>
-              <CardDescription className="text-blue-200">
-                Exchange currencies at real interbank rates
-              </CardDescription>
-            </CardHeader>
-          </Card>
-
-          <Card 
-            className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-sm border-white/20 hover:from-purple-500/30 hover:to-pink-500/30 transition-all duration-300 cursor-pointer group"
-            onClick={() => setActiveView('transfer')}
-          >
-            <CardHeader className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                <Send className="w-8 h-8 text-white" />
-              </div>
-              <CardTitle className="text-white">Send Money</CardTitle>
-              <CardDescription className="text-blue-200">
-                Instant global transfers with low fees
-              </CardDescription>
-            </CardHeader>
-          </Card>
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <ChevronDown className="w-8 h-8 text-white/60" />
         </div>
       </section>
 
-      {/* Target Users */}
-      <section className="container mx-auto px-4 py-20">
-        <div className="max-w-4xl mx-auto">
+      {/* About Section */}
+      <section id="about" className="py-20 px-4">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">About Me</h2>
+            <p className="text-blue-200 text-lg max-w-2xl mx-auto">
+              Driven by curiosity and passion for technology, finance, and data science
+            </p>
+          </div>
+          
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-                Built for Early Adopters
-              </h2>
-              <p className="text-blue-200 text-lg mb-8">
-                Our MVP targets specific user segments who face real pain points with traditional banking
-              </p>
-              <ul className="space-y-4">
-                {targetUsers.map((user, index) => (
-                  <li key={index} className="flex items-center text-blue-200">
-                    <Users className="w-5 h-5 text-blue-400 mr-3" />
-                    {user}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-3xl blur-xl"></div>
-              <Card className="relative bg-white/10 backdrop-blur-sm border-white/20">
+              <Card className="bg-white/10 backdrop-blur-sm border-white/20">
                 <CardHeader>
                   <CardTitle className="text-white flex items-center">
-                    <Shield className="w-6 h-6 text-green-400 mr-2" />
-                    MVP Validation Metrics
+                    <Code className="w-6 h-6 text-blue-400 mr-2" />
+                    Academic Focus
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex justify-between text-blue-200">
-                    <span>User Sign-ups</span>
-                    <span className="text-green-400">↗ +125%</span>
+                <CardContent className="text-blue-200">
+                  <p className="mb-4">
+                    Computer Science student with a strong focus on quantitative finance and artificial intelligence. 
+                    I'm passionate about leveraging technology to solve complex financial problems and create innovative solutions.
+                  </p>
+                  <div className="space-y-2">
+                    <div className="flex items-center">
+                      <span className="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
+                      Investment Banking & Quantitative Finance
+                    </div>
+                    <div className="flex items-center">
+                      <span className="w-2 h-2 bg-green-400 rounded-full mr-3"></span>
+                      Artificial Intelligence & Machine Learning
+                    </div>
+                    <div className="flex items-center">
+                      <span className="w-2 h-2 bg-purple-400 rounded-full mr-3"></span>
+                      Data Science & Financial Modeling
+                    </div>
                   </div>
-                  <div className="flex justify-between text-blue-200">
-                    <span>Card Usage</span>
-                    <span className="text-green-400">↗ +89%</span>
-                  </div>
-                  <div className="flex justify-between text-blue-200">
-                    <span>FX Transactions</span>
-                    <span className="text-green-400">↗ +203%</span>
-                  </div>
-                  <div className="flex justify-between text-blue-200">
-                    <span>Referral Rate</span>
-                    <span className="text-green-400">↗ +67%</span>
+                </CardContent>
+              </Card>
+            </div>
+            
+            <div>
+              <Card className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-sm border-white/20">
+                <CardHeader>
+                  <CardTitle className="text-white flex items-center">
+                    <Brain className="w-6 h-6 text-purple-400 mr-2" />
+                    Core Interests
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-2 gap-4">
+                    {[
+                      "Algorithmic Trading",
+                      "Risk Management",
+                      "Machine Learning",
+                      "Financial Markets",
+                      "Data Analytics",
+                      "Quantitative Research"
+                    ].map((interest, index) => (
+                      <Badge key={index} variant="secondary" className="bg-white/10 text-blue-200 justify-center py-2">
+                        {interest}
+                      </Badge>
+                    ))}
                   </div>
                 </CardContent>
               </Card>
@@ -259,17 +244,86 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="container mx-auto px-4 py-12 border-t border-white/10">
-        <div className="text-center">
-          <div className="flex items-center justify-center space-x-2 mb-4">
-            <div className="w-6 h-6 bg-gradient-to-r from-blue-400 to-purple-400 rounded-lg flex items-center justify-center">
-              <Smartphone className="w-4 h-4 text-white" />
-            </div>
-            <span className="text-white font-semibold">Revolut MVP Demo</span>
+      {/* Projects Section */}
+      <section id="projects" className="py-20 px-4">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Featured Projects</h2>
+            <p className="text-blue-200 text-lg">
+              Showcasing my work in machine learning, data science, and quantitative analysis
+            </p>
           </div>
+          
+          <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
+            {projects.map((project, index) => (
+              <ProjectCard key={index} project={project} index={index} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Experience Section */}
+      <section id="experience" className="py-20 px-4">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Professional Experience</h2>
+            <p className="text-blue-200 text-lg">
+              My journey through finance, technology, and data science
+            </p>
+          </div>
+          
+          <div className="space-y-8">
+            {experiences.map((experience, index) => (
+              <ExperienceCard key={index} experience={experience} index={index} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Skills Section */}
+      <SkillsSection />
+
+      {/* Contact Section */}
+      <section id="contact" className="py-20 px-4">
+        <div className="container mx-auto max-w-4xl text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">Let's Connect</h2>
+          <p className="text-blue-200 text-lg mb-12">
+            Interested in quantitative finance, AI, or just want to chat about technology? I'd love to hear from you.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all cursor-pointer group">
+              <CardContent className="p-6 text-center">
+                <Mail className="w-8 h-8 text-blue-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
+                <h3 className="text-white font-semibold mb-2">Email</h3>
+                <p className="text-blue-200 text-sm">your.email@example.com</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all cursor-pointer group">
+              <CardContent className="p-6 text-center">
+                <Linkedin className="w-8 h-8 text-blue-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
+                <h3 className="text-white font-semibold mb-2">LinkedIn</h3>
+                <p className="text-blue-200 text-sm">Connect with me</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all cursor-pointer group">
+              <CardContent className="p-6 text-center">
+                <Github className="w-8 h-8 text-blue-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
+                <h3 className="text-white font-semibold mb-2">GitHub</h3>
+                <p className="text-blue-200 text-sm">View my code</p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-8 px-4 border-t border-white/10">
+        <div className="container mx-auto text-center">
           <p className="text-blue-200 text-sm">
-            A demonstration of fintech MVP principles and core banking features
+            © 2024 Portfolio. Built with passion for finance and technology.
           </p>
         </div>
       </footer>
