@@ -59,7 +59,15 @@ const Index = () => {
     }
   ];
 
-  const experiences = [
+  const experiences: Array<{
+    title: string;
+    company: string;
+    period: string;
+    location: string;
+    description: string;
+    skills: string[];
+    type: 'completed' | 'upcoming';
+  }> = [
     {
       title: "AI and Robotics Intern",
       company: "Net0",
